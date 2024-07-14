@@ -15,3 +15,7 @@ cd <repository_directory>
 npm ci
 npx hardhat
 ```
+
+create files `./contracts/FlashSwap.sol`, `./test/tester.js`, `./scripts/deploy.js`
+create folers `./contracts/interfaces`, `./contracts/libraries`, `./utils` and files in them
+edit file `hardhat.config.js`, add solidity compilers in diffrent versions, add some networks
