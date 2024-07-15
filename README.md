@@ -34,3 +34,7 @@ npx hardhat clean
 ## About Interfaces and Libraries
 
 edit file `./contracts/FlashSwap.sol`
+
+## State Variables and Basic Functions
+
+edit file `./contracts/FlashSwap.sol`
