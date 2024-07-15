@@ -48,129 +48,129 @@ contract PancakeFlashSwap {
         return IERC20(_address).balanceOf(address(this));
     }
 
-    // // PLACE A TRADE
-    // // Executed placing a trade
-    // function placeTrade(
-    //     address _fromToken,
-    //     address _toToken,
-    //     uint256 _amountIn
-    // ) private returns (uint256) {
-    //     address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
-    //         _fromToken,
-    //         _toToken
-    //     );
-    //     require(pair != address(0), "Pool does not exist");
+    // PLACE A TRADE
+    // Executed placing a trade
+    function placeTrade(
+        address _fromToken,
+        address _toToken,
+        uint256 _amountIn
+    ) private returns (uint256) {
+        address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
+            _fromToken,
+            _toToken
+        );
+        require(pair != address(0), "Pool does not exist");
 
-    //     // Calculate Amount Out
-    //     address[] memory path = new address[](2);
-    //     path[0] = _fromToken;
-    //     path[1] = _toToken;
+        // Calculate Amount Out
+        address[] memory path = new address[](2);
+        path[0] = _fromToken;
+        path[1] = _toToken;
 
-    //     uint256 amountRequired = IUniswapV2Router01(PANCAKE_ROUTER)
-    //         .getAmountsOut(_amountIn, path)[1];
+        uint256 amountRequired = IUniswapV2Router01(PANCAKE_ROUTER)
+            .getAmountsOut(_amountIn, path)[1];
 
-    //     // console.log("amountRequired", amountRequired);
+        // console.log("amountRequired", amountRequired);
 
-    //     // Perform Arbitrage - Swap for another token
-    //     uint256 amountReceived = IUniswapV2Router01(PANCAKE_ROUTER)
-    //         .swapExactTokensForTokens(
-    //             _amountIn, // amountIn
-    //             amountRequired, // amountOutMin
-    //             path, // path
-    //             address(this), // address to
-    //             deadline // deadline
-    //         )[1];
+        // Perform Arbitrage - Swap for another token
+        uint256 amountReceived = IUniswapV2Router01(PANCAKE_ROUTER)
+            .swapExactTokensForTokens(
+                _amountIn, // amountIn
+                amountRequired, // amountOutMin
+                path, // path
+                address(this), // address to
+                deadline // deadline
+            )[1];
 
-    //     // console.log("amountRecieved", amountReceived);
+        // console.log("amountRecieved", amountReceived);
 
-    //     require(amountReceived > 0, "Aborted Tx: Trade returned zero");
+        require(amountReceived > 0, "Aborted Tx: Trade returned zero");
 
-    //     return amountReceived;
-    // }
+        return amountReceived;
+    }
 
-    // // CHECK PROFITABILITY
-    // // Checks whether > output > input
-    // function checkProfitability(
-    //     uint256 _input,
-    //     uint256 _output
-    // ) private returns (bool) {
-    //     return _output > _input;
-    // }
+    // CHECK PROFITABILITY
+    // Checks whether > output > input
+    function checkProfitability(
+        uint256 _input,
+        uint256 _output
+    ) private pure returns (bool) {
+        return _output > _input;
+    }
 
-    // // INITIATE ARBITRAGE
-    // // Begins receiving loan to engage performing arbitrage trades
-    // function startArbitrage(address _tokenBorrow, uint256 _amount) external {
-    //     IERC20(BUSD).safeApprove(address(PANCAKE_ROUTER), MAX_INT);
-    //     IERC20(CROX).safeApprove(address(PANCAKE_ROUTER), MAX_INT);
-    //     IERC20(CAKE).safeApprove(address(PANCAKE_ROUTER), MAX_INT);
+    // INITIATE ARBITRAGE
+    // Begins receiving loan to engage performing arbitrage trades
+    function startArbitrage(address _tokenBorrow, uint256 _amount) external {
+        IERC20(BUSD).safeApprove(address(PANCAKE_ROUTER), MAX_INT);
+        IERC20(CROX).safeApprove(address(PANCAKE_ROUTER), MAX_INT);
+        IERC20(CAKE).safeApprove(address(PANCAKE_ROUTER), MAX_INT);
 
-    //     // Get the Factory Pair address for combined tokens
-    //     address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
-    //         _tokenBorrow,
-    //         WBNB
-    //     );
+        // Get the Factory Pair address for combined tokens
+        address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
+            _tokenBorrow,
+            WBNB
+        );
 
-    //     // Return error if combination does not exist
-    //     require(pair != address(0), "Pool does not exist");
+        // Return error if combination does not exist
+        require(pair != address(0), "Pool does not exist");
 
-    //     // Figure out which token (0 or 1) has the amount and assign
-    //     address token0 = IUniswapV2Pair(pair).token0();
-    //     address token1 = IUniswapV2Pair(pair).token1();
-    //     uint256 amount0Out = _tokenBorrow == token0 ? _amount : 0;
-    //     uint256 amount1Out = _tokenBorrow == token1 ? _amount : 0;
+        // Figure out which token (0 or 1) has the amount and assign
+        address token0 = IUniswapV2Pair(pair).token0();
+        address token1 = IUniswapV2Pair(pair).token1();
+        uint256 amount0Out = _tokenBorrow == token0 ? _amount : 0;
+        uint256 amount1Out = _tokenBorrow == token1 ? _amount : 0;
 
-    //     // Passing data as bytes so that the 'swap' function knows it is a flashloan
-    //     bytes memory data = abi.encode(_tokenBorrow, _amount, msg.sender);
+        // Passing data as bytes so that the 'swap' function knows it is a flashloan
+        bytes memory data = abi.encode(_tokenBorrow, _amount, msg.sender);
 
-    //     // Execute the initial swap to get the loan
-    //     IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
-    // }
+        // Execute the initial swap to get the loan
+        IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
+    }
 
-    // function pancakeCall(
-    //     address _sender,
-    //     uint256 _amount0,
-    //     uint256 _amount1,
-    //     bytes calldata _data
-    // ) external {
-    //     // Ensure this request came from the contract
-    //     address token0 = IUniswapV2Pair(msg.sender).token0();
-    //     address token1 = IUniswapV2Pair(msg.sender).token1();
-    //     address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
-    //         token0,
-    //         token1
-    //     );
-    //     require(msg.sender == pair, "The sender needs to match the pair");
-    //     require(_sender == address(this), "Sender should match this contract");
+    function pancakeCall(
+        address _sender,
+        uint256 _amount0,
+        uint256 _amount1,
+        bytes calldata _data
+    ) external {
+        // Ensure this request came from the contract
+        address token0 = IUniswapV2Pair(msg.sender).token0();
+        address token1 = IUniswapV2Pair(msg.sender).token1();
+        address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
+            token0,
+            token1
+        );
+        require(msg.sender == pair, "The sender needs to match the pair");
+        require(_sender == address(this), "Sender should match this contract");
 
-    //     // Decode data for calculating the repayment
-    //     (address tokenBorrow, uint256 amount, address myAddress) = abi.decode(
-    //         _data,
-    //         (address, uint256, address)
-    //     );
+        // Decode data for calculating the repayment
+        (address tokenBorrow, uint256 amount, address myAddress) = abi.decode(
+            _data,
+            (address, uint256, address)
+        );
 
-    //     // Calculate the amount to repay at the end
-    //     uint256 fee = ((amount * 3) / 997) + 1;
-    //     uint256 amountToRepay = amount + fee;
+        // Calculate the amount to repay at the end
+        uint256 fee = ((amount * 3) / 997) + 1;
+        uint256 amountToRepay = amount + fee;
 
-    //     // DO ARBITRAGE
+        // DO ARBITRAGE
 
-    //     // Assign loan amount
-    //     uint256 loanAmount = _amount0 > 0 ? _amount0 : _amount1;
+        // Assign loan amount
+        uint256 loanAmount = _amount0 > 0 ? _amount0 : _amount1;
 
-    //     // Place Trades
-    //     uint256 trade1AcquiredCoin = placeTrade(BUSD, CROX, loanAmount);
-    //     uint256 trade2AcquiredCoin = placeTrade(CROX, CAKE, trade1AcquiredCoin);
-    //     uint256 trade3AcquiredCoin = placeTrade(CAKE, BUSD, trade2AcquiredCoin);
+        // Place Trades
+        uint256 trade1AcquiredCoin = placeTrade(BUSD, CROX, loanAmount);
+        uint256 trade2AcquiredCoin = placeTrade(CROX, CAKE, trade1AcquiredCoin);
+        uint256 trade3AcquiredCoin = placeTrade(CAKE, BUSD, trade2AcquiredCoin);
 
-    //     // Check Profitability
-    //     bool profCheck = checkProfitability(amountToRepay, trade3AcquiredCoin);
-    //     require(profCheck, "Arbitrage not profitable");
+        // Check Profitability
+        bool profCheck = checkProfitability(amountToRepay, trade3AcquiredCoin);
+        require(profCheck, "Arbitrage not profitable");
 
-    //     // Pay Myself
-    //     IERC20 otherToken = IERC20(BUSD);
-    //     otherToken.transfer(myAddress, trade3AcquiredCoin - amountToRepay);
+        // Pay Myself
+        IERC20 otherToken = IERC20(BUSD);
+        otherToken.transfer(myAddress, trade3AcquiredCoin - amountToRepay);
 
-    //     // Pay Loan Back
-    //     IERC20(tokenBorrow).transfer(pair, amountToRepay);
-    // }
+        // Pay Loan Back
+        IERC20(tokenBorrow).transfer(pair, amountToRepay);
+    }
 }

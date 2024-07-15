@@ -38,3 +38,7 @@ edit file `./contracts/FlashSwap.sol`
 ## State Variables and Basic Functions
 
 edit file `./contracts/FlashSwap.sol`
+
+## Start Arbitrage Function Calling Flash Loan
+
+edit file `./contracts/FlashSwap.sol`, add `startArbitrage` funciton
