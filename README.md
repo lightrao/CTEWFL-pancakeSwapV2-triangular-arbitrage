@@ -30,3 +30,7 @@ npx hardhat test
 npx hardhat node
 npx hardhat clean
 ```
+
+## About Interfaces and Libraries
+
+edit file `./contracts/FlashSwap.sol`
