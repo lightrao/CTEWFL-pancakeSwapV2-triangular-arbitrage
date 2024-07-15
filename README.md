@@ -42,3 +42,13 @@ edit file `./contracts/FlashSwap.sol`
 ## Start Arbitrage Function Calling Flash Loan
 
 edit file `./contracts/FlashSwap.sol`, add `startArbitrage` funciton
+
+## Paying Back Our Loan
+
+edit file `./contracts/FlashSwap.sol`, edit `pancakeCall` funciton
+run:
+
+```shell
+npx hardhat compile
+npx hardhat clean
+```
