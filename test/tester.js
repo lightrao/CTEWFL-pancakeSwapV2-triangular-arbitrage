@@ -66,7 +66,7 @@ describe("FlashSwap Contract", () => {
 
   it("general test", async () => {
     const whale_balance = await provider.getBalance(BUSD_WHALE);
-    console.log(ethers.utils.formatUnits(whale_balance.toString(), DECIMALS));
+    console.log(ethers.utils.formatUnits(whale_balance.toString(), DECIMALS)); // for BUSD decimals is 18
   });
 
   // describe("Arbitrage Execution", () => {
