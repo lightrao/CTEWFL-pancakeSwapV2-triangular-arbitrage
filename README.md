@@ -56,3 +56,12 @@ npx hardhat clean
 ## Structuring Javascript Variables
 
 edit file `./test/tester`
+
+## Funding Our Smart Contract In Before Each
+
+edit file `./test/tester`
+run:
+
+```shell
+npx hardhat test
+```

@@ -42,26 +42,31 @@ describe("FlashSwap Contract", () => {
     const whale_balance = await provider.getBalance(BUSD_WHALE);
     expect(whale_balance).not.equal("0");
 
-    // Deploy smart contract
-    const FlashSwap = await ethers.getContractFactory("PancakeFlashSwap");
-    FLASHSWAP = await FlashSwap.deploy();
-    await FLASHSWAP.deployed();
+    // // Deploy smart contract
+    // const FlashSwap = await ethers.getContractFactory("PancakeFlashSwap");
+    // FLASHSWAP = await FlashSwap.deploy();
+    // await FLASHSWAP.deployed();
 
-    // Configure our Borrowing
-    const borrowAmountHuman = "1";
-    BORROW_AMOUNT = ethers.utils.parseUnits(borrowAmountHuman, DECIMALS);
+    // // Configure our Borrowing
+    // const borrowAmountHuman = "1";
+    // BORROW_AMOUNT = ethers.utils.parseUnits(borrowAmountHuman, DECIMALS);
 
-    // Configure Funding - FOR TESTING ONLY
-    initialFundingHuman = "100";
-    FUND_AMOUNT = ethers.utils.parseUnits(initialFundingHuman, DECIMALS);
+    // // Configure Funding - FOR TESTING ONLY
+    // initialFundingHuman = "100";
+    // FUND_AMOUNT = ethers.utils.parseUnits(initialFundingHuman, DECIMALS);
 
-    // Fund our Contract - FOR TESTING ONLY
-    await impersonateFundErc20(
-      tokenBase,
-      BUSD_WHALE,
-      FLASHSWAP.address,
-      initialFundingHuman
-    );
+    // // Fund our Contract - FOR TESTING ONLY
+    // await impersonateFundErc20(
+    //   tokenBase,
+    //   BUSD_WHALE,
+    //   FLASHSWAP.address,
+    //   initialFundingHuman
+    // );
+  });
+
+  it("general test", async () => {
+    const whale_balance = await provider.getBalance(BUSD_WHALE);
+    console.log(ethers.utils.formatUnits(whale_balance.toString(), DECIMALS));
   });
 
   // describe("Arbitrage Execution", () => {
