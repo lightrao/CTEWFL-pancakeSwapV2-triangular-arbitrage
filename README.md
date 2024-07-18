@@ -52,3 +52,7 @@ run:
 npx hardhat compile
 npx hardhat clean
 ```
+
+## Structuring Javascript Variables
+
+edit file `./test/tester`
