@@ -40,5 +40,11 @@ module.exports = {
       url: "https://bsc-dataseed.binance.org/",
       chainId: 56,
     },
+    localhost: {
+      // Configuration for local Ethereum node
+      url: "http://localhost:8545", // Localhost RPC URL
+      // accounts: "hardhat supply", // Uncomment and provide accounts if needed
+      chainId: 31337, // Chain ID for local network
+    },
   },
 };

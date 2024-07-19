@@ -74,3 +74,19 @@ run:
 ```shell
 npx hardhat test
 ```
+
+## Testing Our Loan and Payback Is Working
+
+edit file `./test/tester`
+run:
+
+```shell
+source .env
+npx hardhat node --fork ${RPC_MAINNET}
+```
+
+```shell
+npx hardhat test --network localhost
+npx hardhat test --network hardhat
+npx hardhat test
+```
