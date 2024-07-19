@@ -58,46 +58,46 @@ describe("FlashSwap Contract", () => {
     );
   });
 
-  // describe("Arbitrage Execution", () => {
-  //   it("ensures the contract is funded", async () => {
-  //     const flashSwapBalance = await FLASHSWAP.getBalanceOfToken(
-  //       BASE_TOKEN_ADDRESS
-  //     );
+  describe("Arbitrage Execution", () => {
+    it("ensures the contract is funded", async () => {
+      const flashSwapBalance = await FLASHSWAP.getBalanceOfToken(
+        BASE_TOKEN_ADDRESS
+      );
 
-  //     const flashSwapBalanceHuman = ethers.utils.formatUnits(
-  //       flashSwapBalance,
-  //       DECIMALS
-  //     );
+      const flashSwapBalanceHuman = ethers.utils.formatUnits(
+        flashSwapBalance,
+        DECIMALS
+      );
 
-  //     expect(Number(flashSwapBalanceHuman)).equal(Number(initialFundingHuman));
-  //   });
+      expect(Number(flashSwapBalanceHuman)).equal(Number(initialFundingHuman));
+    });
 
-  //   it("executes the arbitrage", async () => {
-  //     txArbitrage = await FLASHSWAP.startArbitrage(
-  //       BASE_TOKEN_ADDRESS,
-  //       BORROW_AMOUNT
-  //     );
+    // it("executes the arbitrage", async () => {
+    //   txArbitrage = await FLASHSWAP.startArbitrage(
+    //     BASE_TOKEN_ADDRESS,
+    //     BORROW_AMOUNT
+    //   );
 
-  //     assert(txArbitrage);
+    //   assert(txArbitrage);
 
-  //     // Print balances
-  //     const contractBalanceBUSD = await FLASHSWAP.getBalanceOfToken(BUSD);
-  //     const formattedBalBUSD = Number(
-  //       ethers.utils.formatUnits(contractBalanceBUSD, DECIMALS)
-  //     );
-  //     console.log("Balance of BUSD: " + formattedBalBUSD);
+    //   // Print balances
+    //   const contractBalanceBUSD = await FLASHSWAP.getBalanceOfToken(BUSD);
+    //   const formattedBalBUSD = Number(
+    //     ethers.utils.formatUnits(contractBalanceBUSD, DECIMALS)
+    //   );
+    //   console.log("Balance of BUSD: " + formattedBalBUSD);
 
-  //     const contractBalanceCROX = await FLASHSWAP.getBalanceOfToken(CROX);
-  //     const formattedBalCROX = Number(
-  //       ethers.utils.formatUnits(contractBalanceCROX, DECIMALS)
-  //     );
-  //     console.log("Balance of CROX: " + formattedBalCROX);
+    //   const contractBalanceCROX = await FLASHSWAP.getBalanceOfToken(CROX);
+    //   const formattedBalCROX = Number(
+    //     ethers.utils.formatUnits(contractBalanceCROX, DECIMALS)
+    //   );
+    //   console.log("Balance of CROX: " + formattedBalCROX);
 
-  //     const contractBalanceCAKE = await FLASHSWAP.getBalanceOfToken(CAKE);
-  //     const formattedBalCAKE = Number(
-  //       ethers.utils.formatUnits(contractBalanceCAKE, DECIMALS)
-  //     );
-  //     console.log("Balance of CAKE: " + formattedBalCAKE);
-  //   });
-  // });
+    //   const contractBalanceCAKE = await FLASHSWAP.getBalanceOfToken(CAKE);
+    //   const formattedBalCAKE = Number(
+    //     ethers.utils.formatUnits(contractBalanceCAKE, DECIMALS)
+    //   );
+    //   console.log("Balance of CAKE: " + formattedBalCAKE);
+    // });
+  });
 });

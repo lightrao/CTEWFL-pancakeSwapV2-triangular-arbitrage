@@ -65,3 +65,12 @@ run:
 ```shell
 npx hardhat test
 ```
+
+## Checking Smart Contract is Funded
+
+edit file `./test/tester`
+run:
+
+```shell
+npx hardhat test
+```
