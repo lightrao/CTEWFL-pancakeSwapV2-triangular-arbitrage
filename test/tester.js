@@ -2,12 +2,6 @@ const { expect, assert } = require("chai");
 const { ethers } = require("hardhat");
 const { impersonateFundErc20 } = require("../utils/utilities");
 
-describe("Token Contract", () => {
-  it("prints hello", () => {
-    console.log("hello");
-  });
-});
-
 const {
   abi,
 } = require("../artifacts/contracts/interfaces/IERC20.sol/IERC20.json");
@@ -42,31 +36,26 @@ describe("FlashSwap Contract", () => {
     const whale_balance = await provider.getBalance(BUSD_WHALE);
     expect(whale_balance).not.equal("0");
 
-    // // Deploy smart contract
-    // const FlashSwap = await ethers.getContractFactory("PancakeFlashSwap");
-    // FLASHSWAP = await FlashSwap.deploy();
-    // await FLASHSWAP.deployed();
+    // Deploy smart contract
+    const FlashSwap = await ethers.getContractFactory("PancakeFlashSwap");
+    FLASHSWAP = await FlashSwap.deploy();
+    await FLASHSWAP.deployed();
 
-    // // Configure our Borrowing
-    // const borrowAmountHuman = "1";
-    // BORROW_AMOUNT = ethers.utils.parseUnits(borrowAmountHuman, DECIMALS);
+    // Configure our Borrowing
+    const borrowAmountHuman = "1";
+    BORROW_AMOUNT = ethers.utils.parseUnits(borrowAmountHuman, DECIMALS);
 
-    // // Configure Funding - FOR TESTING ONLY
-    // initialFundingHuman = "100";
-    // FUND_AMOUNT = ethers.utils.parseUnits(initialFundingHuman, DECIMALS);
+    // Configure Funding - FOR TESTING ONLY
+    initialFundingHuman = "100";
+    FUND_AMOUNT = ethers.utils.parseUnits(initialFundingHuman, DECIMALS);
 
-    // // Fund our Contract - FOR TESTING ONLY
-    // await impersonateFundErc20(
-    //   tokenBase,
-    //   BUSD_WHALE,
-    //   FLASHSWAP.address,
-    //   initialFundingHuman
-    // );
-  });
-
-  it("general test", async () => {
-    const whale_balance = await provider.getBalance(BUSD_WHALE);
-    console.log(ethers.utils.formatUnits(whale_balance.toString(), DECIMALS)); // for BUSD decimals is 18
+    // Fund our Contract - FOR TESTING ONLY
+    await impersonateFundErc20(
+      tokenBase,
+      BUSD_WHALE,
+      FLASHSWAP.address,
+      initialFundingHuman
+    );
   });
 
   // describe("Arbitrage Execution", () => {
