@@ -7,7 +7,7 @@ async function main() {
 
   // Deploy the contract
   const PancakeFlashSwap = await ethers.getContractFactory("PancakeFlashSwap");
-  const pancakeFlashSwap = await PancakeFlashSwap.deploy();
+  const pancakeFlashSwap = await PancakeFlashSwap.connect(deployer).deploy();
   await pancakeFlashSwap.deployed();
   console.log("PancakeFlashSwap deployed to:", pancakeFlashSwap.address);
 }
