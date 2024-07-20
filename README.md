@@ -90,3 +90,7 @@ npx hardhat test --network localhost
 npx hardhat test --network hardhat
 npx hardhat test
 ```
+
+```shell
+npx hardhat run scripts/deployAndFund.js --network yourNetwork
+```

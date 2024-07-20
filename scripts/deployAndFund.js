@@ -24,15 +24,15 @@ async function main() {
   console.log(`Approved ${totalAmountToDeposit.toString()} tokens for funding`);
 
   // Fund the contract with the total amount needed
-  await pancakeFlashSwap.fundFlashSwapContract(
-    owner.address,
-    tokenAddress,
-    totalAmountToDeposit
-  );
+  await pancakeFlashSwap
+    .connect(owner)
+    .fundFlashSwapContract(owner.address, tokenAddress, totalAmountToDeposit);
   console.log(`Funded contract with ${totalAmountToDeposit.toString()} tokens`);
 
   // Initiate arbitrage
-  const tx = await pancakeFlashSwap.startArbitrage(tokenAddress, borrowAmount);
+  const tx = await pancakeFlashSwap
+    .connect(owner)
+    .startArbitrage(tokenAddress, borrowAmount);
   await tx.wait();
 
   console.log("Arbitrage started");
