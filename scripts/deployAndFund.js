@@ -14,20 +14,17 @@ async function main() {
   const tokenAddress = "your_token_address_here"; // e.g., BUSD address
   const borrowAmount = ethers.utils.parseUnits("1000", 18); // Amount to borrow
   const fee = borrowAmount.mul(3).div(997).add(1); // Fee calculation
-  const totalAmountToDeposit = borrowAmount.add(fee); // Total amount needed
 
   // Approve the contract to spend the owner's tokens
   const tokenContract = await ethers.getContractAt("IERC20", tokenAddress);
-  await tokenContract
-    .connect(owner)
-    .approve(pancakeFlashSwap.address, totalAmountToDeposit);
-  console.log(`Approved ${totalAmountToDeposit.toString()} tokens for funding`);
+  await tokenContract.connect(owner).approve(pancakeFlashSwap.address, fee);
+  console.log(`Approved ${fee.toString()} tokens for funding`);
 
-  // Fund the contract with the total amount needed
+  // Fund the contract with the fee amount needed
   await pancakeFlashSwap
     .connect(owner)
-    .fundFlashSwapContract(owner.address, tokenAddress, totalAmountToDeposit);
-  console.log(`Funded contract with ${totalAmountToDeposit.toString()} tokens`);
+    .fundFlashSwapContract(owner.address, tokenAddress, fee);
+  console.log(`Funded contract with ${fee.toString()} tokens`);
 
   // Initiate arbitrage
   const tx = await pancakeFlashSwap
