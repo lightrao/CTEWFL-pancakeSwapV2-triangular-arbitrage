@@ -5,7 +5,6 @@ const { impersonateFundErc20 } = require("../utils/utilities");
 const {
   abi,
 } = require("../artifacts/contracts/interfaces/IERC20.sol/IERC20.json");
-// const { inputToConfig } = require("@ethereum-waffle/compiler");
 
 const provider = waffle.provider;
 
@@ -38,7 +37,7 @@ describe("FlashSwap Contract", () => {
 
     // Deploy smart contract
     const FlashSwap = await ethers.getContractFactory("PancakeFlashSwap");
-    FLASHSWAP = await FlashSwap.deploy();
+    FLASHSWAP = await FlashSwap.connect(owner).deploy();
     await FLASHSWAP.deployed();
 
     // Configure our Borrowing
@@ -73,7 +72,7 @@ describe("FlashSwap Contract", () => {
     });
 
     it("executes the arbitrage", async () => {
-      txArbitrage = await FLASHSWAP.startArbitrage(
+      txArbitrage = await FLASHSWAP.connect(owner).startArbitrage(
         BASE_TOKEN_ADDRESS,
         BORROW_AMOUNT
       );
