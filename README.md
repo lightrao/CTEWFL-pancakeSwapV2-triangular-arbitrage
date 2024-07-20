@@ -91,6 +91,10 @@ npx hardhat test --network hardhat
 npx hardhat test
 ```
 
+## Add some scripts in `./scripts` folder
+
 ```shell
-npx hardhat run scripts/deployAndFund.js --network yourNetwork
+npx hardhat run scripts/deploy.js --network yourNetwork
+npx hardhat run scripts/fundContract.js --network yourNetwork
+npx hardhat run scripts/startArbitrage.js --network yourNetwork
 ```
