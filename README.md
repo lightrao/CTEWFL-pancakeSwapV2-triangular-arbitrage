@@ -98,3 +98,7 @@ npx hardhat run scripts/deploy.js --network yourNetwork
 npx hardhat run scripts/fundContract.js --network yourNetwork
 npx hardhat run scripts/startArbitrage.js --network yourNetwork
 ```
+
+## Writing Our Trading Function
+
+edit file `./contracts/FlashSwap.sol`

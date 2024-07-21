@@ -50,43 +50,43 @@ contract PancakeFlashSwap {
 
     // PLACE A TRADE
     // Executed placing a trade
-    // function placeTrade(
-    //     address _fromToken,
-    //     address _toToken,
-    //     uint256 _amountIn
-    // ) private returns (uint256) {
-    //     address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
-    //         _fromToken,
-    //         _toToken
-    //     );
-    //     require(pair != address(0), "Pool does not exist");
+    function placeTrade(
+        address _fromToken,
+        address _toToken,
+        uint256 _amountIn
+    ) private returns (uint256) {
+        address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
+            _fromToken,
+            _toToken
+        );
+        require(pair != address(0), "Pool does not exist");
 
-    //     // Calculate Amount Out
-    //     address[] memory path = new address[](2);
-    //     path[0] = _fromToken;
-    //     path[1] = _toToken;
+        // Calculate Amount Out
+        address[] memory path = new address[](2);
+        path[0] = _fromToken;
+        path[1] = _toToken;
 
-    //     uint256 amountRequired = IUniswapV2Router01(PANCAKE_ROUTER)
-    //         .getAmountsOut(_amountIn, path)[1];
+        uint256 amountRequired = IUniswapV2Router01(PANCAKE_ROUTER)
+            .getAmountsOut(_amountIn, path)[1];
 
-    //     // console.log("amountRequired", amountRequired);
+        console.log("amountRequired", amountRequired);
 
-    //     // Perform Arbitrage - Swap for another token
-    //     uint256 amountReceived = IUniswapV2Router01(PANCAKE_ROUTER)
-    //         .swapExactTokensForTokens(
-    //             _amountIn, // amountIn
-    //             amountRequired, // amountOutMin
-    //             path, // path
-    //             address(this), // address to
-    //             deadline // deadline
-    //         )[1];
+        // Perform Arbitrage - Swap for another token
+        uint256 amountReceived = IUniswapV2Router01(PANCAKE_ROUTER)
+            .swapExactTokensForTokens(
+                _amountIn, // amountIn
+                amountRequired, // amountOutMin
+                path, // path
+                address(this), // address to
+                deadline // deadline
+            )[1];
 
-    //     // console.log("amountRecieved", amountReceived);
+        console.log("amountRecieved", amountReceived);
 
-    //     require(amountReceived > 0, "Aborted Tx: Trade returned zero");
+        require(amountReceived > 0, "Aborted Tx: Trade returned zero");
 
-    //     return amountReceived;
-    // }
+        return amountReceived;
+    }
 
     // // CHECK PROFITABILITY
     // // Checks whether > output > input
