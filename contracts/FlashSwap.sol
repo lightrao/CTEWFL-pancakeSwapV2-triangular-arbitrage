@@ -120,7 +120,7 @@ contract PancakeFlashSwap {
         uint256 amount1Out = _tokenBorrow == token1 ? _amount : 0;
 
         // Passing data as bytes so that the 'swap' function knows it is a flashloan
-        bytes memory data = abi.encode(_tokenBorrow, _amount, msg.sender);
+        bytes memory data = abi.encode(_tokenBorrow, _amount, msg.sender); // the msg.sender is the "owner"
 
         // Execute the initial swap to get the loan
         IUniswapV2Pair(pair).swap(amount0Out, amount1Out, address(this), data);
@@ -133,7 +133,7 @@ contract PancakeFlashSwap {
         bytes calldata _data
     ) external {
         // Ensure this request came from the contract
-        address token0 = IUniswapV2Pair(msg.sender).token0();
+        address token0 = IUniswapV2Pair(msg.sender).token0(); // the msg.sender is IUniswapV2Pair(pair)
         address token1 = IUniswapV2Pair(msg.sender).token1();
         address pair = IUniswapV2Factory(PANCAKE_FACTORY).getPair(
             token0,
@@ -163,12 +163,12 @@ contract PancakeFlashSwap {
         uint256 trade3AcquiredCoin = placeTrade(CAKE, BUSD, trade2AcquiredCoin);
 
         // Check Profitability
-        // bool profCheck = checkProfitability(amountToRepay, trade3AcquiredCoin);
-        // require(profCheck, "Arbitrage not profitable");
+        bool profCheck = checkProfitability(amountToRepay, trade3AcquiredCoin);
+        require(profCheck, "Arbitrage not profitable");
 
         // Pay Myself
-        // IERC20 otherToken = IERC20(BUSD);
-        // otherToken.transfer(myAddress, trade3AcquiredCoin - amountToRepay);
+        IERC20 otherToken = IERC20(BUSD);
+        otherToken.transfer(myAddress, trade3AcquiredCoin - amountToRepay); // the "myAddress" is "owner"
 
         // Pay Loan Back
         IERC20(tokenBorrow).transfer(pair, amountToRepay);

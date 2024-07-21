@@ -119,3 +119,11 @@ edit file `./contracts/FlashSwap.sol`
 ```shell
 npx hardhat test
 ```
+
+## Encoding Your Address
+
+edit file `./contracts/FlashSwap.sol`
+
+```shell
+npx hardhat test
+```
