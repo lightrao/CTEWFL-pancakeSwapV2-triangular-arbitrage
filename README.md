@@ -102,3 +102,20 @@ npx hardhat run scripts/startArbitrage.js --network yourNetwork
 ## Writing Our Trading Function
 
 edit file `./contracts/FlashSwap.sol`
+
+## Placing Our First Trade
+
+edit file `./contracts/FlashSwap.sol`
+note: Now, I've not found any arbitrage opportunities. We're doing this with some dummy coins here, we're basically just picking some random tokens here and doing an arbitrage.
+
+```shell
+npx hardhat test
+```
+
+## Completing Our Arbitrage Trade
+
+edit file `./contracts/FlashSwap.sol`
+
+```shell
+npx hardhat test
+```
