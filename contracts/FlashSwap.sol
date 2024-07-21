@@ -69,7 +69,7 @@ contract PancakeFlashSwap {
         uint256 amountRequired = IUniswapV2Router01(PANCAKE_ROUTER)
             .getAmountsOut(_amountIn, path)[1];
 
-        console.log("amountRequired", amountRequired);
+        // console.log("amountRequired", amountRequired);
 
         // Perform Arbitrage - Swap for another token
         uint256 amountReceived = IUniswapV2Router01(PANCAKE_ROUTER)
@@ -81,7 +81,7 @@ contract PancakeFlashSwap {
                 deadline // deadline
             )[1];
 
-        console.log("amountRecieved", amountReceived);
+        // console.log("amountRecieved", amountReceived);
 
         require(amountReceived > 0, "Aborted Tx: Trade returned zero");
 

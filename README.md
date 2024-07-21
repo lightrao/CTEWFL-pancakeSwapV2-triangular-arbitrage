@@ -127,3 +127,11 @@ edit file `./contracts/FlashSwap.sol`
 ```shell
 npx hardhat test
 ```
+
+## Paying Ourselves the Profit and Cleaning Up
+
+edit file `./contracts/FlashSwap.sol`
+
+```shell
+npx hardhat test
+```
