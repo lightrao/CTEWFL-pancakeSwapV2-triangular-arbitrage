@@ -135,3 +135,10 @@ edit file `./contracts/FlashSwap.sol`
 ```shell
 npx hardhat test
 ```
+
+## Deployment Dummy Run
+
+```shell
+npx hardhat test
+npx hardhat run scripts/deploy.js --network testnet
+```
